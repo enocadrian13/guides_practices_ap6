@@ -8,13 +8,10 @@ class CarFactory {
   }
 }
 
-
-
 function main(){
     const factory = new CarFactory();
     console.log(factory.createCar("sedan"));
 
 }
-
 
 main();

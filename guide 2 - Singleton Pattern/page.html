@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dark Mode Singleton</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111827;
+    }
+    [data-theme="dark"] {
+      --bg: #0b1220;
+      --text: #e6eef8;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dark Mode Singleton Demo</h1>
+  <p>Click the button to toggle dark mode</p>
+  <button id="toggleBtn">Toggle Dark Mode</button>
+<script src="darkmode.js"></script>
+</body>
+</html>

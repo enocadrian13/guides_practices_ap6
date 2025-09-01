@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart with Strategy Pattern</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .product, .cart { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
+    button { margin-top: 5px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <h2>🛍️ Product Selection</h2>
+  <div class="product">
+    <label>Product Name: 
+      <select id="productName">
+        <option value="Laptop" data-price="50000">Laptop - ₱50,000</option>
+        <option value="Phone" data-price="20000">Phone - ₱20,000</option>
+        <option value="Headphones" data-price="5000">Headphones - ₱5,000</option>
+      </select>
+    </label>
+    <br>
+    <label>Quantity: <input type="number" id="quantity" value="1" min="1"></label>
+    <br>
+    <button onclick="addToCart()">Add to Cart</button>
+    <button onclick="showCart()">View Cart</button>
+  </div>
+
+  <div class="cart hidden" id="cart">
+    <h3>🛒 Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <p><strong>Total: ₱<span id="cartTotal">0</span></strong></p>
+    <button onclick="checkout()">Checkout</button>
+    <button onclick="hideCart()">Go Back</button>
+  </div>
+
+  <div class="cart hidden" id="checkout">
+    <h3>💳 Checkout</h3>
+    <p>Total Amount: ₱<span id="checkoutTotal">0</span></p>
+
+    <label>Choose Payment Method:</label>
+    <select id="paymentMethod">
+      <option value="credit">Credit Card</option>
+      <option value="paypal">PayPal</option>
+      <option value="gcash">GCash</option>
+    </select>
+    <br><br>
+    <button onclick="processPayment()">Pay Now</button>
+    <button onclick="hideCheckout()">Cancel</button>
+  </div>
+
+  <script>
+    // -------------------
+    // CART LOGIC
+    // -------------------
+    let cart = [];
+
+    function addToCart() {
+      const productSelect = document.getElementById("productName");
+      const productName = productSelect.value;
+      const productPrice = parseInt(productSelect.options[productSelect.selectedIndex].dataset.price);
+      const quantity = parseInt(document.getElementById("quantity").value);
+
+      cart.push({ name: productName, price: productPrice, quantity });
+      alert(`${productName} added to cart!`);
+    }
+
+    function showCart() {
+      document.getElementById("cart").classList.remove("hidden");
+      renderCart();
+    }
+
+    function hideCart() {
+      document.getElementById("cart").classList.add("hidden");
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById("cartItems");
+      cartList.innerHTML = "";
+      let total = 0;
+
+      cart.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = `${item.quantity} x ${item.name} - ₱${item.price * item.quantity}`;
+        cartList.appendChild(li);
+        total += item.price * item.quantity;
+      });
+
+      document.getElementById("cartTotal").textContent = total;
+    }
+
+    function checkout() {
+      document.getElementById("cart").classList.add("hidden");
+      document.getElementById("checkout").classList.remove("hidden");
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      document.getElementById("checkoutTotal").textContent = total;
+    }
+
+    function hideCheckout() {
+      document.getElementById("checkout").classList.add("hidden");
+    }
+
+    // -------------------
+    // STRATEGY PATTERN
+    // -------------------
+    class PaymentStrategy {
+      pay(amount) { throw new Error("pay() must be implemented"); }
+    }
+
+    class CreditCardPayment extends PaymentStrategy {
+      pay(amount) { alert(`Paid ₱${amount} using Credit Card`); }
+    }
+
+    class PaypalPayment extends PaymentStrategy {
+      pay(amount) { alert(`Paid ₱${amount} using PayPal`); }
+    }
+
+    class GCashPayment extends PaymentStrategy {
+      pay(amount) { alert(`Paid ₱${amount} using GCash`); }
+    }
+
+    // Context
+    class PaymentContext {
+      setStrategy(strategy) { this.strategy = strategy; }
+      pay(amount) {
+        if (!this.strategy) throw new Error("No payment strategy set!");
+        this.strategy.pay(amount);
+      }
+    }
+
+    function processPayment() {
+      const method = document.getElementById("paymentMethod").value;
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      const context = new PaymentContext();
+
+      switch (method) {
+        case "credit":
+          context.setStrategy(new CreditCardPayment());
+          break;
+        case "paypal":
+          context.setStrategy(new PaypalPayment());
+          break;
+        case "gcash":
+          context.setStrategy(new GCashPayment());
+          break;
+      }
+
+      context.pay(total);
+      cart = []; // clear cart after payment
+      document.getElementById("checkout").classList.add("hidden");
+    }
+  </script>
+
+</body>
+</html>

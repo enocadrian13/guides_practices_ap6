@@ -1,0 +1,96 @@
+BACKBONE SETUP
+
+folder structure
+backbone-demo/
+│
+├── index.html
+├── app.js
+└── README.md
+
+
+
+2. 
+Add Backbone.js Dependencies Using CDN 
+    <div id="app"></div>
+    <!-- jQuery (required by Backbone DOM) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Underscore.js (required by Backbone) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+    <!-- Backbone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.5.0/backbone-min.js"></script>
+    <!-- Your App -->
+    <script src="app.js"></script>
+
+
+# Backbone Demo Boilerplate with Explanations
+
+This project demonstrates the basics of Backbone.js, including models, views, events, and environment setup.
+
+---
+
+## Overview
+Backbone.js is a lightweight JavaScript library that gives structure to client-side applications. It uses models with key-value binding, collections, views with event handling, and optional routers.
+
+**Why use Backbone.js:**
+- Helps organize front-end code for maintainability.
+- Provides a structured way to interact with RESTful APIs.
+- Minimal dependencies: relies on Underscore.js and optionally jQuery.
+
+**When not to use:**
+- If you need a fully-featured framework like React or Angular, Backbone provides less built-in functionality.
+
+---
+
+## Project Structure
+```
+backbone-demo/
+  index.html      <- Main HTML file
+  css/style.css   <- CSS for styling
+  js/models.js    <- Backbone models
+  js/views.js     <- Backbone views
+  js/app.js       <- App initialization and main logic
+  README.md       <- Project documentation
+```
+
+---
+
+## index.html
+- Loads dependencies: jQuery, Underscore.js, Backbone.js.
+- Links CSS file.
+- Includes app scripts: models, views, app.
+- Contains a `<div id="app"></div>` as the main container for Backbone views.
+
+---
+
+## CSS (style.css)
+- Basic styling and a `completed` class to visually mark completed tasks.
+
+---
+
+## Models (models.js)
+- Defines a `Task` model with default attributes `title` and `completed`.
+- Includes a `toggle` function to change the `completed` state.
+- Implements validation to prevent empty titles.
+
+---
+
+## Views (views.js)
+- Defines a `TaskView` to render a task item and handle DOM events.
+- Uses the `template` function to inject model data into HTML.
+- Listens to model changes with `this.listenTo()` to re-render on updates.
+- Handles `click` event on the toggle button to mark tasks as completed.
+
+---
+
+## App Initialization (app.js)
+- On document ready, creates a new `Task` model.
+- Creates a `TaskView` attached to `#app`.
+- Renders the view to display the task.
+
+---
+
+## README.md
+- Explains the purpose of the demo.
+- Lists the Backbone concepts covered: models, views, events, environment setup.
+
+This setup serves as a starting point for learning Backbone.js. You can extend it with collections, additional views, routing, and server sync as needed.

@@ -1,5 +1,10 @@
-$(function(){
-  var task = new Task({ title: 'Do homework' });
-  var view = new TaskView({ model: task, el: '#app' });
-  view.render();
+import modelscrud from 'models-crud.js'
+
+
+const message = Backbone.Model.extend({
+  defaults: { text: "Hello, Backbone.js!" }
 });
+
+const msg = new message();
+
+console.log(msg.get('text'));

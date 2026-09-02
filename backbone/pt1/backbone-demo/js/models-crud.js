@@ -1,6 +1,3 @@
-// =========================
-// MODEL
-// =========================
 const Person = Backbone.Model.extend({
     defaults: {
         name: "Unknown",
@@ -8,10 +5,7 @@ const Person = Backbone.Model.extend({
     }
 });
 
-// =========================
-// VIEW
-// =========================
-const PersonView = Backbone.View.extend({
+export const PersonView = Backbone.View.extend({
     el: "#app",
 
     events: {
@@ -21,7 +15,6 @@ const PersonView = Backbone.View.extend({
     },
 
     initialize: function () {
-        // Store multiple persons in a collection
         this.people = new Backbone.Collection();
         this.render();
     },
@@ -48,10 +41,6 @@ const PersonView = Backbone.View.extend({
 
         this.$el.html(html);
     },
-
-    // =========================
-    // CREATE
-    // =========================
     createPerson: function () {
         const name = this.$("#nameInput").val().trim();
         const age = parseInt(this.$("#ageInput").val());
@@ -65,9 +54,6 @@ const PersonView = Backbone.View.extend({
         }
     },
 
-    // =========================
-    // UPDATE
-    // =========================
     updatePerson: function (e) {
         const index = $(e.currentTarget).data("index");
         const person = this.people.at(index);
@@ -81,9 +67,6 @@ const PersonView = Backbone.View.extend({
         }
     },
 
-    // =========================
-    // DELETE
-    // =========================
     deletePerson: function (e) {
         const index = $(e.currentTarget).data("index");
         const person = this.people.at(index);
@@ -91,8 +74,4 @@ const PersonView = Backbone.View.extend({
         this.render();
     }
 });
-
-// =========================
-// INIT
-// =========================
 const app = new PersonView();

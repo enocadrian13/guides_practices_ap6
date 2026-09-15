@@ -45,7 +45,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Register</h2>
+    <!-- <h2>Register</h2>
     <input type="text" id="regUser" placeholder="Enter Username">
     <input type="password" id="regPass" placeholder="Enter Password">
     <button onclick="register()">Register</button>
@@ -53,11 +53,16 @@
     <h2>Login</h2>
     <input type="text" id="loginUser" placeholder="Enter Username">
     <input type="password" id="loginPass" placeholder="Enter Password">
-    <button onclick="login()">Login</button>
+    <button onclick="login()">Login</button> -->
 
     <p class="message" id="message"></p>
+
+    <button onclick="theme.setTheme('theme',{toggle: 'dark'})">Set Theme</button>
+    <button onclick="theme.toggleTheme()"> Toggle Theme</button>
+    <button onclick="theme.loadTheme('theme')">Check Theme</button>
+    <button onclick="theme.resetTheme()">Reset Theme</button>
   </div>
 
- <script src="local-storage-reg-log.js"></script>
+ <script src="local-storage.js"></script>
 </body>
 </html>

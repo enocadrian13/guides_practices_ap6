@@ -12,6 +12,8 @@ class LocalStorageManager {
   // Save data
   save(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
+
+   
   }
 
   // Load data
@@ -31,11 +33,41 @@ class LocalStorageManager {
   }
 }
 
-// Usage
-const storage1 = new LocalStorageManager();
-storage1.save("user", { name: "Adrian", age: 23 });
+class ToggleWebTheme{
+  constructor(){
+    if(ToggleWebTheme.instance){
+      return ToggleWebTheme.instance;
+    }
+  }
 
-const storage2 = new LocalStorageManager();
-console.log(storage2.load("user")); // { name: "Adrian", age: 23 }
+  setTheme(key, value){
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 
-console.log(storage1 === storage2); // true ✅ Singleton
+  loadTheme(key){
+    const theme = localStorage.getItem(key);
+
+    console.log(JSON.parse(theme));
+  }
+  
+  resetTheme(){
+    localStorage.clear();
+  }
+  
+  toggleTheme(){
+    // console.log("Trigger")
+     const data = localStorage.getItem('theme');
+     const theme = data ? JSON.parse(data) : null;
+
+    //  console.log(theme)
+    
+    if(theme.toggle === 'dark'){
+      this.setTheme('theme', {toggle: 'light'})
+    }else{
+      this.setTheme('theme', {toggle: 'dark'})
+    }
+  }
+}
+
+
+const theme = new ToggleWebTheme();

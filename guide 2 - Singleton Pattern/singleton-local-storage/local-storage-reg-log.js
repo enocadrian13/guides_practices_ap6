@@ -15,6 +15,7 @@ class LocalStorageManager {
 
     load(key) {
         const data = localStorage.getItem(key);
+        console.log(JSON.parse);
         return data ? JSON.parse(data) : null;
     }
 }
@@ -27,9 +28,9 @@ function register() {
 
     if (username && password) {
         storage.save("credentials", { username, password });
-        document.getElementById("message").textContent = "✅ Registered successfully!";
+        document.getElementById("message").textContent = "Registered successfully!";
     } else {
-        document.getElementById("message").textContent = "⚠️ Please enter username and password.";
+        document.getElementById("message").textContent = "Please enter username and password.";
     }
 }
 
@@ -40,8 +41,8 @@ function login() {
     const credentials = storage.load("credentials");
 
     if (credentials && username === credentials.username && password === credentials.password) {
-        document.getElementById("message").textContent = "🎉 Login successful!";
+        document.getElementById("message").textContent = `Login Success, Welcome ${credentials.username}`;
     } else {
-        document.getElementById("message").textContent = "❌ Invalid username or password.";
+        document.getElementById("message").textContent = "Invalid username or password.";
     }
 }
